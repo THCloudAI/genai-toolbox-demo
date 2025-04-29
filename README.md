@@ -1,6 +1,6 @@
 # MCP Toolbox Demo
 
-A simple demonstration of the Google MCP Toolbox with PostgreSQL for hotel management.
+A simple demonstration of the Google's "MCP Toolbox for Databases" with PostgreSQL for hotel management.
 
 ## Quick Demo Guide
 
@@ -102,3 +102,6 @@ You can integrate this database toolbox with OpenWebUI by adding it to your MCP(
 ## Notes for the Team
 
 This is a simple demonstration to show how the Google MCP Toolbox can be configured to work with a database. The SQL operations are basic but show the potential for more complex implementations.
+
+## Links
+- https://googleapis.github.io/genai-toolbox/getting-started/introduction/
