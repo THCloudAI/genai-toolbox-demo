@@ -6,7 +6,7 @@ A simple demonstration of the Google's "MCP Toolbox for Databases" with PostgreS
 
 This project demonstrates how to use the MCP Toolbox with a PostgreSQL database for basic hotel management operations.
 
-Note: Replace ${TOOLBOX_PORT} with the value set in `.env` file
+Note: Replace `${TOOLBOX_PORT}` with the value set in `.env` file
 
 ### Setup
 
