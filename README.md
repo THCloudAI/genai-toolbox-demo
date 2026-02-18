@@ -75,9 +75,9 @@ This demo includes a simple hotel database with tools to:
 
 3. Open the above link in your browser.
 
-4. For Transport Type, select **SSE**.
+4. For Transport Type, select **Streamable HTTP**.
 
-5. For URL, type in `http://127.0.0.1:${TOOLBOX_PORT}/mcp/sse`.
+5. For URL, type in `http://127.0.0.1:${TOOLBOX_PORT}/mcp`.
 
 6. Click **Connect**.
 
@@ -87,17 +87,12 @@ This demo includes a simple hotel database with tools to:
 
 ## OpenWebUI Integration
 
-You can integrate this database toolbox with OpenWebUI by adding it to your MCP(O) configuration:
+In OpenWebUI, navigate to **Admin Panel > Settings > External Tools** and click **Add Connection**. Select **MCP Streamable HTTP** as the Type, and paste the toolbox `/mcp` URL as the Base URL, e.g. `http://<your-ip-with-port-or-domain>/mcp`.
 
-```json
-{
-  "mcpServers": {
-    "db": {
-      "url": "http://127.0.0.1:${TOOLBOX_PORT}/mcp/sse"
-    }
-  }
-}
-```
+> **Note:** OpenWebUI must be able to reach the toolbox. Use your machine's IP or a domain behind a reverse proxy. For local development, you can expose it temporarily with ngrok:
+> ```
+> ngrok http ${TOOLBOX_PORT}
+> ```
 
 ## Notes for the Team
 
