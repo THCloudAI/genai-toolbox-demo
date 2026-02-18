@@ -6,6 +6,13 @@ sources:
     database: toolbox_db
     user: toolbox_user
     password: my-password
+  mindsdb:
+    kind: mysql
+    host: mindsdb
+    port: 47335
+    database: mindsdb
+    user: ${MINDSDB_USER}
+    password: ${MINDSDB_PASSWORD}
 tools:
   search-hotels-by-name:
     kind: postgres-sql
@@ -63,6 +70,15 @@ tools:
         type: string
         description: The ID of the hotel to cancel.
     statement: UPDATE hotels SET booked = B'0' WHERE id = $1;
+  search-knowledge:
+    kind: mysql-sql
+    source: mindsdb
+    description: Ask the hotel AI agent a question about availability, locations, and pricing.
+    parameters:
+      - name: question
+        type: string
+        description: The question to ask the hotel agent.
+    statement: SELECT answer FROM hotel_agent WHERE question = ?;
 toolsets:
   my-toolset:
     - search-hotels-by-name
@@ -70,4 +86,5 @@ toolsets:
     - book-hotel
     - update-hotel
     - cancel-hotel
+    - search-knowledge
 

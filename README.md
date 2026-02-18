@@ -26,12 +26,14 @@ This demo includes a simple hotel database with tools to:
 - Book a hotel
 - Update check-in/check-out dates
 - Cancel a booking
+- Ask the AI agent natural language questions about hotels (via MindsDB)
 
 ### How It Works
 
 1. **Database**: A PostgreSQL database with a simple hotels table
 2. **MCP Toolbox**: Provides SQL-based tools that connect to the database
-3. **Configuration**: Tools are defined in `config/tools.yaml`
+3. **MindsDB**: Provides an AI agent (`hotel_agent`) for natural language queries
+4. **Configuration**: Tools are defined in `config/tools.yaml`
 
 ### Available Demo Tools
 
@@ -40,6 +42,7 @@ This demo includes a simple hotel database with tools to:
 - `book-hotel`: Book a hotel by ID
 - `update-hotel`: Change check-in/check-out dates
 - `cancel-hotel`: Cancel a booking
+- `search-knowledge`: Ask the AI agent questions in natural language (e.g., "Are there any luxury hotels in Basel?")
 
 ### Example Usage
 
@@ -93,6 +96,38 @@ In OpenWebUI, navigate to **Admin Panel > Settings > External Tools** and click 
 > ```
 > ngrok http ${TOOLBOX_PORT}
 > ```
+
+## MindsDB Integration
+
+MindsDB is included in the Docker Compose setup. It connects to the same PostgreSQL database and exposes an AI `hotel_agent` for natural language queries. The toolbox connects to MindsDB via the `search-knowledge` tool.
+
+### Setup
+
+1. Open the MindsDB editor at `http://localhost:47334`
+2. Replace `OPENAI_API_KEY` in `mindsdb/create_knowledge_agent.sql` with your actual key
+3. Run the SQL in the MindsDB editor — this creates the `psql_knowledge` DB connection and the `hotel_agent`
+
+Once done, the `search-knowledge` tool in the MCP Toolbox will be ready to use.
+
+### MindsDB MCP Server
+
+MindsDB also exposes its own MCP server. Note that it currently only supports **SSE** (not Streamable HTTP), so use `/mcp/sse` as the endpoint:
+
+```
+http://localhost:47334/mcp/sse
+```
+
+A bearer token is required. See [MindsDB Authentication docs](https://docs.mindsdb.com/rest/authentication) to obtain one.
+
+> **Note:** OpenWebUI only supports MCP Streamable HTTP, so the MindsDB MCP server (`/mcp/sse`) cannot be used directly with OpenWebUI. Use the MCP Toolbox (`/mcp`) instead.
+
+### Example Queries (via MindsDB editor)
+
+```sql
+SELECT answer FROM hotel_agent WHERE question = 'What hotels are available in Zurich?';
+SELECT answer FROM hotel_agent WHERE question = 'Show me luxury hotels';
+SELECT answer FROM hotel_agent WHERE question = 'Is the Hilton Basel available?';
+```
 
 ## Notes for the Team
 
